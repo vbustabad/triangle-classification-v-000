@@ -1,17 +1,17 @@
 class Triangle
-  attr_reader :a, :b, :c
+  attr_reader :length_one, :length_two, :length_three
 
-  def initialize(a, b, c)
-    @a = a
-    @b = b
-    @c = c
+  def initialize(length_one, length_two, length_three)
+    @length_one = length_one
+    @length_two = length_two
+    @length_three = length_three
   end
 
   def kind
     validate_triangle
-    if a == b && b == c
+    if length_one == length_two && length_two == length_three
       :equilateral
-    elsif a == b || b == c || a == c
+    elsif length_one == length_two || length_two == length_three || length_one == length_three
       :isosceles
     else
       :scalene
@@ -19,8 +19,8 @@ class Triangle
   end
 
   def validate_triangle
-    real_triangle = [(a + b > c), (a + c > b), (b + c > a)]
-    [a, b, c].each { |s| real_triangle << false if s <= 0 }
+    real_triangle = [(length_one + length_two > length_three), (length_one + length_three > length_two), (length_two + length_three > length_one)]
+    [length_one, length_two, length_three].each { |side| real_triangle << false if side <= 0 }
     raise TriangleError if real_triangle.include?(false)
   end
 
